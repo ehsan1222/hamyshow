@@ -6,7 +6,9 @@ public enum ApplicationPermissions {
     COMMENT_WRITE("comment:write"),
     COMMENT_CHANGE("comment:change"),
     MOVIE_DOWNLOAD("movie:download"),
-    MOVIE_UPLOAD("movie:upload");
+    MOVIE_UPLOAD("movie:upload"),
+    MOVIE_SUGGEST("movie:suggest"),
+    ADMIN_ADD("admin:add");
 
     private final String permission;
 
