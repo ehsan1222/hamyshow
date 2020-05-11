@@ -23,7 +23,7 @@ public class MoviesController {
 
     @GetMapping("{movieId}")
     public String showMovieDetail(@PathVariable("movieId") UUID movieId) {
-        return "movie";
+        return "movie-details";
     }
 
     @GetMapping("suggestmovie")
@@ -35,7 +35,7 @@ public class MoviesController {
     public String suggestMovie(@RequestParam("movieName") String movieName,
                                @RequestParam("imdbUrl") String imdbUrl) {
 
-        return "redirect:/movies";
+        return "redirect:/movies/suggestmovie";
     }
 
     @GetMapping("{movieId}/{movieFileId}")
