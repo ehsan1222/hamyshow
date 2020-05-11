@@ -17,16 +17,16 @@ public class MovieInformation {
     private final Date creationDate;
     private final Set<String> directors;
     private final Set<String> actors;
+    private final String picturePath;
 
-    public MovieInformation(UUID movieId,
-                            String name,
+    public MovieInformation(String name,
                             Set<String> languages,
                             MPARating mpaRating,
                             List<String> genre,
                             Date creationDate,
                             Set<String> directors,
-                            Set<String> actors) {
-        this.movieId = movieId;
+                            Set<String> actors, String picturePath) {
+        this.movieId = UUID.randomUUID();
         this.name = name;
         this.languages = languages;
         this.mpaRating = mpaRating;
@@ -34,5 +34,42 @@ public class MovieInformation {
         this.creationDate = creationDate;
         this.directors = directors;
         this.actors = actors;
+        this.picturePath = picturePath;
+    }
+
+    public UUID getMovieId() {
+        return movieId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<String> getLanguages() {
+        return languages;
+    }
+
+    public MPARating getMpaRating() {
+        return mpaRating;
+    }
+
+    public List<String> getGenre() {
+        return genre;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Set<String> getDirectors() {
+        return directors;
+    }
+
+    public Set<String> getActors() {
+        return actors;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
     }
 }
