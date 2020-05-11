@@ -35,7 +35,7 @@ public class MoviesController {
     public String suggestMovie(@RequestParam("movieName") String movieName,
                                @RequestParam("imdbUrl") String imdbUrl) {
 
-        return "redirect: /movies";
+        return "redirect:/movies";
     }
 
     @GetMapping("{movieId}/{movieFileId}")
