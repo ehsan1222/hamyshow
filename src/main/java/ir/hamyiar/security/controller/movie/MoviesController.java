@@ -3,6 +3,7 @@ package ir.hamyiar.security.controller.movie;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,41 +22,45 @@ public class MoviesController {
         return "movies";
     }
 
-    @GetMapping("{movieId}")
-    public String showMovieDetail(@PathVariable("movieId") UUID movieId) {
-        return "movie-details";
-    }
-
     @GetMapping("suggestmovie")
+    @PreAuthorize("hasAuthority('movie:suggest')")
     public String suggestMoviePage() {
         return "suggest-movie";
     }
 
     @PostMapping("suggestmovie")
+    @PreAuthorize("hasAuthority('movie:suggest')")
     public String suggestMovie(@RequestParam("movieName") String movieName,
                                @RequestParam("imdbUrl") String imdbUrl) {
 
         return "redirect:/movies/suggestmovie";
     }
 
-    @GetMapping("{movieId}/{movieFileId}")
+    @GetMapping("{movieId}")
+    public String showMovieDetail(@PathVariable("movieId") UUID movieId) {
+        return "movie-details";
+    }
+
+    @GetMapping("{movieId}/{moviePathId}")
     @ResponseBody
+    @PreAuthorize("hasAuthority('movie:download')")
     public ResponseEntity<Resource> downloadMovie(@PathVariable("movieId") UUID movieId,
                                                   @PathVariable("moviePathId") UUID moviePathId) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("{movieId}/upload")
-    public String uploadMovieForm(@PathVariable("movieId") String movieId) {
+    @GetMapping("upload")
+    @PreAuthorize("hasAuthority('movie:upload')")
+    public String uploadMovieForm() {
 
         return "upload-movie";
     }
 
 
-    @PostMapping("{movieId}/upload")
-    public String handleUploadMovieFile(@PathVariable("movieId") String movieId,
-                                        @RequestParam("file") MultipartFile file,
+    @PostMapping("upload")
+    @PreAuthorize("hasAuthority('movie:upload')")
+    public String handleUploadMovieFile(@RequestParam("file") MultipartFile file,
                                         RedirectAttributes redirectAttributes) {
 
 
