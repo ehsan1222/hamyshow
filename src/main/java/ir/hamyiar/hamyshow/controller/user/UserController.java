@@ -1,6 +1,6 @@
 package ir.hamyiar.security.controller.user;
 
-import ir.hamyiar.security.model.User;
+import ir.hamyiar.security.model.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +22,7 @@ public class UserController {
 
     @GetMapping(path = "{username}")
     public String getUserInformation(@PathVariable("username") String username) {
-        User mockUser = new User(
-                "Ehsan Maddahi",
-                "ehsan",
-                "password",
-                "s.e.maddahi.ir@gmail.com",
-                "0912000000"
-        );
+
         return "user-details";
     }
 
