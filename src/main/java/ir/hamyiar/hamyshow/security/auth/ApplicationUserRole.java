@@ -1,13 +1,12 @@
-package ir.hamyiar.security.security.auth;
+package ir.hamyiar.hamyshow.security.auth;
 
 import com.google.common.collect.Sets;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ir.hamyiar.security.security.auth.ApplicationPermissions.*;
+import static ir.hamyiar.hamyshow.security.auth.ApplicationPermissions.*;
 
 public enum ApplicationUserRole {
     USER(Sets.newHashSet(USER_READ, USER_WRITE, COMMENT_WRITE, MOVIE_DOWNLOAD)),
@@ -22,7 +21,7 @@ public enum ApplicationUserRole {
         this.permissions = permissions;
     }
 
-    public Set<? extends GrantedAuthority> getGrantedAuthority() {
+    public Set<SimpleGrantedAuthority> getGrantedAuthority() {
         Set<SimpleGrantedAuthority> userPermissions = permissions.stream()
                 .map(applicationPermissions -> new SimpleGrantedAuthority(applicationPermissions.getPermission()))
                 .collect(Collectors.toSet());

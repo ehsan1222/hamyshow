@@ -1,4 +1,4 @@
-package ir.hamyiar.security.controller.movie;
+package ir.hamyiar.hamyshow.controller.movie;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;

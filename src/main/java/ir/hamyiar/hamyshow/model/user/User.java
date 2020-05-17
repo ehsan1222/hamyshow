@@ -1,7 +1,6 @@
-package ir.hamyiar.security.model.user;
+package ir.hamyiar.hamyshow.model.user;
 
 import lombok.Data;
-import lombok.Getter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

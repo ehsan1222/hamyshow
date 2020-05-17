@@ -1,6 +1,6 @@
-package ir.hamyiar.security.controller.user;
+package ir.hamyiar.hamyshow.controller.user;
 
-import ir.hamyiar.security.model.user.User;
+import ir.hamyiar.hamyshow.model.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package ir.hamyiar.security.model;
+package ir.hamyiar.hamyshow.model;
 
 import lombok.Getter;
 

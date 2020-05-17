@@ -1,4 +1,4 @@
-package ir.hamyiar.security.model;
+package ir.hamyiar.hamyshow.model;
 
 public enum MPARating {
     G("G"), PG("PG"), PG13("PG-13"), R("R"), NC17("NC-17");

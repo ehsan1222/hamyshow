@@ -1,4 +1,4 @@
-package ir.hamyiar.security;
+package ir.hamyiar.hamyshow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

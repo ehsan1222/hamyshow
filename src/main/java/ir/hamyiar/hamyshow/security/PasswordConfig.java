@@ -1,4 +1,4 @@
-package ir.hamyiar.security.security;
+package ir.hamyiar.hamyshow.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

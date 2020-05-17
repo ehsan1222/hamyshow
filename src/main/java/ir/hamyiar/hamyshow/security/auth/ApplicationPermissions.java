@@ -1,4 +1,4 @@
-package ir.hamyiar.security.security.auth;
+package ir.hamyiar.hamyshow.security.auth;
 
 public enum ApplicationPermissions {
     USER_READ("user:read"),
