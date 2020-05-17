@@ -11,7 +11,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-    @Query("SELECT u FROM User AS u OFFSET :offsetUser LIMIT :limitUser")
+    @Query(value = "SELECT u FROM User AS u OFFSET :offsetUser LIMIT :limitUser",
+            nativeQuery = true)
     List<User> getAllUsers(@Param("offsetUser") int offsetUser, @Param("limitUser") int limitUser);
 
     void deleteByUsername(String username);
