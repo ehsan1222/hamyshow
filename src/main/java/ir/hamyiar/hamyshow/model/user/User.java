@@ -7,10 +7,12 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
+@Table(name = "users")
+@SequenceGenerator(name = "users_sequence", sequenceName = "users_id_sequence")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
     private Long id;
     @Column(nullable = false)
     private String username;

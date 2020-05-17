@@ -5,19 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
 @Data
+@Table(name = "user_information")
+@SequenceGenerator(name = "user_information_sequence", sequenceName = "user_information_id_sequence")
 public class UserInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_information_sequence")
     private Long id;
     private String fullName;
     private String email;
