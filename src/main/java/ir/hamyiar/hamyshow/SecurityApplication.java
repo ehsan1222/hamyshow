@@ -1,4 +1,4 @@
-package ir.hamyiar.security;
+package ir.hamyiar.hamyshow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
