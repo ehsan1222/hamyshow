@@ -1,9 +1,11 @@
 package ir.hamyiar.hamyshow.model.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class UserRegistryIn {
+@AllArgsConstructor
+public class UserIn {
     private String username;
     private String password;
     private String fullName;
