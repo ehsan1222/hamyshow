@@ -6,7 +6,7 @@ import ir.hamyiar.hamyshow.exception.UsernameAlreadyExistsException;
 import ir.hamyiar.hamyshow.exception.UsernameNotFoundException;
 import ir.hamyiar.hamyshow.model.user.User;
 import ir.hamyiar.hamyshow.model.user.UserInformation;
-import ir.hamyiar.hamyshow.model.user.UserRegistryIn;
+import ir.hamyiar.hamyshow.model.user.UserIn;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,16 +34,16 @@ public class UserService {
         this.userInformationRepository = userInformationRepository;
     }
 
-    public void createUser(UserRegistryIn userRegistryIn) {
-        if (userRepository.findByUsername(userRegistryIn.getUsername()).isPresent()) {
-            throw new UsernameAlreadyExistsException(String.format("%s already exists.", userRegistryIn.getUsername()));
+    public void createUser(UserIn userIn) {
+        if (userRepository.findByUsername(userIn.getUsername()).isPresent()) {
+            throw new UsernameAlreadyExistsException(String.format("%s already exists.", userIn.getUsername()));
         }
-        User user = new User(userRegistryIn.getUsername().trim(),
-                passwordEncoder.encode(userRegistryIn.getPassword().trim()));
+        User user = new User(userIn.getUsername().trim(),
+                passwordEncoder.encode(userIn.getPassword().trim()));
 
-        UserInformation userInformation = new UserInformation(userRegistryIn.getFullName().trim(),
-                userRegistryIn.getEmail().trim(),
-                userRegistryIn.getMobile().trim());
+        UserInformation userInformation = new UserInformation(userIn.getFullName().trim(),
+                userIn.getEmail().trim(),
+                userIn.getMobile().trim());
 
         user.setUserInformation(userInformation);
         userRepository.save(user);
@@ -75,6 +75,28 @@ public class UserService {
     }
 
     // TODO: Update user will implement after design argument structure
+
+    public void updateUserInformation(UserIn userIn) {
+        userRepository.findByUsername(userIn.getUsername())
+                .ifPresentOrElse(
+                        user -> {
+                            UserInformation userInformation = user.getUserInformation();
+                            if (!userIn.getFullName().equals(userInformation.getFullName())) {
+                                userInformation.setFullName(userIn.getFullName());
+                            }
+                            if (!userIn.getMobile().equals(userInformation.getMobile())) {
+                                userInformation.setValidatedPhone(false);
+                                userInformation.setMobile(userIn.getMobile());
+                            }
+                            if (!userIn.getEmail().equals(userInformation.getEmail())) {
+                                userInformation.setValidatedEmail(false);
+                                userInformation.setEmail(userIn.getEmail());
+                            }
+                            userInformationRepository.save(userInformation);
+                        }
+                , UsernameNotFoundException::new);
+    }
+
 
     public void sendEmail(String username) {
         isUserExists(username)
