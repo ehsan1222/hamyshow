@@ -1,27 +1,35 @@
 package ir.hamyiar.hamyshow.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
+@AllArgsConstructor
 public class UsernameAndPasswordUserDetails implements UserDetails {
 
+    private Set<? extends GrantedAuthority> authorities;
+    private String username;
+    private String password;
+    private boolean isAccountNonBlock;
+    private boolean isEnabled;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
@@ -31,7 +39,7 @@ public class UsernameAndPasswordUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonBlock;
     }
 
     @Override
@@ -41,6 +49,6 @@ public class UsernameAndPasswordUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return isEnabled;
     }
 }
