@@ -1,11 +1,13 @@
 package ir.hamyiar.hamyshow.model.user;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
