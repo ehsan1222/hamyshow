@@ -3,11 +3,11 @@ package ir.hamyiar.hamyshow.service;
 import ir.hamyiar.hamyshow.dao.UserInformationRepository;
 import ir.hamyiar.hamyshow.dao.UserRepository;
 import ir.hamyiar.hamyshow.exception.UsernameAlreadyExistsException;
-import ir.hamyiar.hamyshow.exception.UsernameNotFoundException;
 import ir.hamyiar.hamyshow.model.user.User;
-import ir.hamyiar.hamyshow.model.user.UserInformation;
 import ir.hamyiar.hamyshow.model.user.UserIn;
+import ir.hamyiar.hamyshow.model.user.UserInformation;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -66,35 +66,38 @@ public class UserService {
 
 
     public void changePassword(String username, String currentPassword, String newPassword) {
-        Optional<User> optionalUser = isUserExists(username);
-        optionalUser
+        Optional<User> optionalUser = isUserExists(username)
                 .filter(user ->
-                        user.getPassword().equals(passwordEncoder.encode(currentPassword)))
-                .ifPresentOrElse(user ->
-                        user.setPassword(passwordEncoder.encode(newPassword)), UsernameNotFoundException::new);
+                        user.getPassword().equals(passwordEncoder.encode(currentPassword)));
+        if (optionalUser.isPresent()) {
+            optionalUser.get().setPassword(passwordEncoder.encode(newPassword));
+        } else {
+            throw new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND_MESSAGE, username));
+        }
     }
 
     // TODO: Update user will implement after design argument structure
 
     public void updateUserInformation(UserIn userIn) {
-        userRepository.findByUsername(userIn.getUsername())
-                .ifPresentOrElse(
-                        user -> {
-                            UserInformation userInformation = user.getUserInformation();
-                            if (!userIn.getFullName().equals(userInformation.getFullName())) {
-                                userInformation.setFullName(userIn.getFullName());
-                            }
-                            if (!userIn.getMobile().equals(userInformation.getMobile())) {
-                                userInformation.setValidatedPhone(false);
-                                userInformation.setMobile(userIn.getMobile());
-                            }
-                            if (!userIn.getEmail().equals(userInformation.getEmail())) {
-                                userInformation.setValidatedEmail(false);
-                                userInformation.setEmail(userIn.getEmail());
-                            }
-                            userInformationRepository.save(userInformation);
-                        }
-                , UsernameNotFoundException::new);
+        Optional<User> optionalUser = userRepository.findByUsername(userIn.getUsername());
+
+        if (optionalUser.isPresent()) {
+            UserInformation userInformation = optionalUser.get().getUserInformation();
+            if (!userIn.getFullName().equals(userInformation.getFullName())) {
+                userInformation.setFullName(userIn.getFullName());
+            }
+            if (!userIn.getMobile().equals(userInformation.getMobile())) {
+                userInformation.setValidatedPhone(false);
+                userInformation.setMobile(userIn.getMobile());
+            }
+            if (!userIn.getEmail().equals(userInformation.getEmail())) {
+                userInformation.setValidatedEmail(false);
+                userInformation.setEmail(userIn.getEmail());
+            }
+            userInformationRepository.save(userInformation);
+        } else {
+            throw new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND_MESSAGE, userIn.getUsername()));
+        }
     }
 
 
@@ -153,7 +156,7 @@ public class UserService {
                 );
     }
 
-    public void validatePhone (String username, String generatedOptCode) {
+    public void validatePhone(String username, String generatedOptCode) {
         isUserExists(username)
                 .ifPresent(
                         user -> {
