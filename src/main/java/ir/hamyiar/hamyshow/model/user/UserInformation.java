@@ -12,12 +12,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Table(name = "user_information")
-@SequenceGenerator(name = "user_information_sequence", sequenceName = "user_information_id_sequence")
 public class UserInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_information_sequence")
-    private Long id;
+    @Column(columnDefinition = "serial")
+    protected Long id;
     private String fullName;
     private String email;
     private String validateCodeGenerated;
@@ -41,3 +40,4 @@ public class UserInformation {
         this.validatedPhone = false;
     }
 }
+
