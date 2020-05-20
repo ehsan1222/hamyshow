@@ -26,6 +26,7 @@ public class UserInformation {
     private String otpCode;
     private Timestamp otpExpired;
     private boolean validatedPhone;
+    @Enumerated(EnumType.STRING)
     private ApplicationUserRole applicationUserRole;
 
     @CreationTimestamp
