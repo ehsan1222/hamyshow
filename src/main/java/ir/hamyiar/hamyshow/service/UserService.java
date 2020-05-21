@@ -2,6 +2,7 @@ package ir.hamyiar.hamyshow.service;
 
 import ir.hamyiar.hamyshow.dao.UserInformationRepository;
 import ir.hamyiar.hamyshow.dao.UserRepository;
+import ir.hamyiar.hamyshow.exception.PasswordNotMatchException;
 import ir.hamyiar.hamyshow.exception.UsernameAlreadyExistsException;
 import ir.hamyiar.hamyshow.model.user.User;
 import ir.hamyiar.hamyshow.model.user.UserIn;
@@ -36,8 +37,13 @@ public class UserService {
 
     public void createUser(UserIn userIn) {
         if (userRepository.findByUsername(userIn.getUsername()).isPresent()) {
-            throw new UsernameAlreadyExistsException(String.format("%s already exists.", userIn.getUsername()));
+            throw new UsernameAlreadyExistsException();
         }
+
+        if (!userIn.getPassword().equals(userIn.getPasswordConfirm())) {
+            throw new PasswordNotMatchException();
+        }
+
         User user = new User(userIn.getUsername().trim(),
                 passwordEncoder.encode(userIn.getPassword().trim()));
 
