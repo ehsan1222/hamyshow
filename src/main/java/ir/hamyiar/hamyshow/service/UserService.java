@@ -106,6 +106,20 @@ public class UserService {
         }
     }
 
+    public void incorrectPassword(String username) {
+        isUserExists(username)
+                .ifPresent(
+                        user -> {
+                            user.setNumberOfIncorrectPassword(user.getNumberOfIncorrectPassword() + 1);
+                            if (user.getNumberOfIncorrectPassword() >= 3) {
+                                Timestamp fifteenMinuteLater = new Timestamp(System.currentTimeMillis()
+                                        + TimeUnit.MINUTES.toMillis(15));
+                                user.setIncorrectPasswordFreezeAccount(fifteenMinuteLater);
+                            }
+                            userRepository.save(user);
+                        }
+                );
+    }
 
     public void sendEmail(String username) {
         isUserExists(username)
