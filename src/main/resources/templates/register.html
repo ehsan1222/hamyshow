@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.com" xmlns:tiles="http://www.thymeleaf.com">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sign Up</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+
+
+<div class="container">
+
+    <form action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" >
+        <h2 class="form-signin-heading">Please sign in</h2>
+
+        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+            <p th:text="${param.error}"></p>
+        </div>
+
+        <p>
+            <label for="fullname" class="sr-only">Full Name</label>
+            <input type="text" id="fullname" name="fullname" th:field="*{fullName}" class="form-control" placeholder="Full Name" required="" autofocus="">
+        </p>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Username" required="">
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Password" required="">
+        </p>
+        <p>
+            <label for="password-confirm" class="sr-only">Password Confirm</label>
+            <input type="password" id="password-confirm" th:field="*{passwordConfirm}" name="password-confirm" class="form-control" placeholder="Password Confirm" required="">
+        </p>
+        <p>
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" name="email" th:field="*{email}" class="form-control" placeholder="example@gmail.com" required="">
+        </p>
+        <p>
+            <label for="mobile" class="sr-only">Mobile</label>
+            <input type="text" id="mobile" name="mobile" th:field="*{mobile}" class="form-control" placeholder="09156666666" required="">
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <div class="text-center">
+            <a href="/">Home</a>
+        </div>
+
+    </form>
+</div>
+</body></html>
