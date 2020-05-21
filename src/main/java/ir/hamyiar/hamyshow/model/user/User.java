@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(columnDefinition = "serial")
     private Long id;
     @Column(nullable = false)

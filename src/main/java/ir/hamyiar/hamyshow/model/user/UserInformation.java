@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 public class UserInformation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(columnDefinition = "serial")
     protected Long id;
     private String fullName;
