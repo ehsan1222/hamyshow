@@ -121,6 +121,16 @@ public class UserService {
                 );
     }
 
+    public void resetPasswordIncorrectCounter(String username) {
+        isUserExists(username)
+                .ifPresent(
+                        user -> {
+                            user.setNumberOfIncorrectPassword(0);
+                            userRepository.save(user);
+                        }
+                );
+    }
+
     public void sendEmail(String username) {
         isUserExists(username)
                 .filter(user -> !user.isValidateAccount())
