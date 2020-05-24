@@ -5,6 +5,7 @@ import ir.hamyiar.hamyshow.exception.UsernameAlreadyExistsException;
 import ir.hamyiar.hamyshow.model.user.UserIn;
 import ir.hamyiar.hamyshow.service.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -43,7 +46,9 @@ public class ApplicationController {
     }
 
     @GetMapping("login")
-    public String login() {
+    public String login(HttpServletRequest request, HttpSession httpSession) {
+        SavedRequest saved_request = (SavedRequest) httpSession.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+        request.getSession().setAttribute("url_prior_login", saved_request.getRedirectUrl());
         return "login";
     }
 
