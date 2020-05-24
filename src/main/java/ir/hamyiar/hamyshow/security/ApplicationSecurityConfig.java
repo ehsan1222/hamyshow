@@ -16,12 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final UsernameAndPasswordUserDetailsService usernameAndPasswordUserDetailsService;
+    private final ApplicationUserDetailsService applicationUserDetailsService;
 
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     UsernameAndPasswordUserDetailsService usernameAndPasswordUserDetailsService) {
+                                     ApplicationUserDetailsService applicationUserDetailsService) {
         this.passwordEncoder = passwordEncoder;
-        this.usernameAndPasswordUserDetailsService = usernameAndPasswordUserDetailsService;
+        this.applicationUserDetailsService = applicationUserDetailsService;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(usernameAndPasswordUserDetailsService);
+        provider.setUserDetailsService(applicationUserDetailsService);
         return provider;
     }
 

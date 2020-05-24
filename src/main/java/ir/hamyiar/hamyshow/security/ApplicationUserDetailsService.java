@@ -14,11 +14,11 @@ import java.util.Set;
 
 @Service
 @Log4j2
-public class UsernameAndPasswordUserDetailsService implements UserDetailsService {
+public class ApplicationUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
 
-    public UsernameAndPasswordUserDetailsService(UserService userService) {
+    public ApplicationUserDetailsService(UserService userService) {
         this.userService = userService;
     }
 
@@ -38,7 +38,7 @@ public class UsernameAndPasswordUserDetailsService implements UserDetailsService
                 .getApplicationUserRole().name());
         log.info("=-=-=-=-=-=-=-=-=-=-=-0>>>>>>" + user.getUserInformation()
                 .getApplicationUserRole().getGrantedAuthority());
-        return new UsernameAndPasswordUserDetails(
+        return new ApplicationUserDetails(
                 authorities,
                 user.getUsername(),
                 user.getPassword(),
