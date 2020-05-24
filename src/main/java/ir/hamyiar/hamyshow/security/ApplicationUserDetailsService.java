@@ -34,10 +34,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
         Set<SimpleGrantedAuthority> authorities = user.getUserInformation()
                 .getApplicationUserRole()
                 .getGrantedAuthority();
-        log.info("=-=-=-=-=-=-=-=-=-=-=-0>>>>>>" + user.getUserInformation()
-                .getApplicationUserRole().name());
-        log.info("=-=-=-=-=-=-=-=-=-=-=-0>>>>>>" + user.getUserInformation()
-                .getApplicationUserRole().getGrantedAuthority());
+        
         return new ApplicationUserDetails(
                 authorities,
                 user.getUsername(),
