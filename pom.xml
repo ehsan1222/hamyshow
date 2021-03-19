@@ -11,8 +11,8 @@
 	<groupId>ir.hamyiar</groupId>
 	<artifactId>homyshow</artifactId>
 	<version>0.0.1</version>
-	<name>security</name>
-	<description>Movie and Music category</description>
+	<name>homyshow</name>
+	<description>Movie and Music site</description>
 
 	<properties>
 		<java.version>11</java.version>
